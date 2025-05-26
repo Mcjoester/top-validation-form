@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Form Validation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <form novalidate id="test-form">
+
+            <fieldset>
+            
+            <div class="form-title">
+            <h2 class="title">
+            Form Validation
+            </h2>
+            </div>
+            
+            <div class="form-row">
+            <label for="email">Email: </label>
+            <input type="email" id="email" name="email" required minlength="8">
+            <span class="error" id="form-email-error" aria-live="polite"></span>
+            </div>
+            
+            <div class="form-row">
+            <label for="country">Country: </label>
+            <select id="country" name="country" required>
+            <option value="" data-attribute="Waiting for country to get selected">Select your country</option>
+            <option value="US" data-attribute="e.g 12345">United States</option>
+            <option value="MX" data-attribute="e.g 12345">Mexico</option>
+            <option value="CA" data-attribute="e.g D8UF3I">Canada</option>
+            </select>
+            <span class="error" id="form-country-error" aria-live="polite"></span>
+            </div>
+            
+            <div class="form-row">
+            <label for="postal-code">Postal Code: </label>
+            <input tpye="text" id="postal-code" name="postal-code" required maxlength="7">
+            <span class="error" id="form-postal-error" aria-live="polite"></span>
+            </div>
+            
+            <div class="form-row">
+            <label for="password">Password: </label>
+            <input type="password" id="password" name="password" required minlength="9" maxlength="18">
+            <span class="error" id="form-pw-error" aria-live="polite"></span>
+            </div>
+            
+            <div class="form-row">
+            <label for="confirm-pw">Confirm Password: </label>
+            <input type="password" id="confirm-pw" name="confirm-pw" required minlength="9" maxlength="18">
+            <span class="error" id="form-confirm-error" aria-live="polite"></span>
+            </div>
+            
+            <div class="button-row">
+            <button class="submit-form" id="submit-form" type="submit">
+            Submit
+            </button>
+            </div>
+            </fieldset>
+            </form> 
+       
+        <script src="script.js" async defer></script>
+    </body>
+</html>
