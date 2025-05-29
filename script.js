@@ -1,5 +1,8 @@
 class TestForm {
     constructor() {
+    // Form
+    this.form = document.querySelector('#test-form');    
+
     // Inputs
     this.emailInput = document.querySelector('#email');
     this.countryInput = document.querySelector('#country');
@@ -19,7 +22,6 @@ class TestForm {
     if (this.emailInput.validity.valid) {
     this.emailError.textContent = '';
     this.emailError.classList.remove('active');
-    this.emailInput.classList.add('green');
     } else {
     this.validateEmail();
     }
@@ -29,7 +31,6 @@ class TestForm {
         if (this.emailInput.validity.valid) {
             this.emailError.textContent = '';
             this.emailError.classList.remove('active');
-            this.emailInput.classList.add('green');
             } else {
             this.validateEmail();
             }
@@ -101,7 +102,6 @@ class TestForm {
     if (this.confirmPasswordInput.value === this.passwordInput.value && this.confirmPasswordInput.value !== '') {
     this.confirmPwError.textContent = '';
     this.confirmPwError.classList.remove('active');
-    console.log('pws match');
     } else {
     this.validateConfirmPassword();
     }
@@ -111,13 +111,47 @@ class TestForm {
         if (this.confirmPasswordInput.value === this.passwordInput.value && this.confirmPasswordInput.value !== '') {
         this.confirmPwError.textContent = '';
         this.confirmPwError.classList.remove('active');
-        console.log('pws match');
         } else {
         this.validateConfirmPassword();
         }
         });
-    
-    
+
+    this.form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const inputs = document.querySelectorAll('input, select');
+        let isFormValid = false;
+        inputs.forEach((input) => {
+            const previousSibling = input.previousElementSibling.textContent;
+            const nextSibling = input.nextElementSibling;
+            if (input.validity.valid) {
+                nextSibling.textContent = '';
+                nextSibling.classList.remove('acitve');
+                isFormValid = true;
+            } else if (!input.validity.valid) {
+                isFormValid = false;
+               if (previousSibling === "Email: *") {
+                this.validateEmail();
+               } else if (previousSibling === "Country: *") {
+                this.validateCountry();
+               } else if (previousSibling === "Postal Code: *") {
+                this.validatePostalCode();
+               } else if (previousSibling === "Password: *") {
+                this.validatePassword();
+               } else if (previousSibling === "Confirm Password: *") {
+                this.validateConfirmPassword();
+               } else {
+                console.log(`I iterated through all these but I do not know what you mean by ${previousSibling}`);
+               }
+            }
+        });
+        if (isFormValid) {
+            alert('High Five! 👋 ');
+            this.form.reset();
+        } else {
+            console.log('Form is not valid');
+        }
+    });    
+
     }
     
     // Methods
@@ -126,12 +160,10 @@ class TestForm {
     validateConfirmPassword() {
     if (this.confirmPasswordInput.validity.valueMissing)  {
         this.confirmPwError.textContent = 'This field cannot be blank';
-        console.log('Value Missing');
     } else if (this.passwordInput.value !== this.confirmPasswordInput.value) {
         this.confirmPwError.textContent = 'Passwords do not match';
-        console.log('Pw not match');
     }
-    this.confirmPwError.classList.add('active');
+    this.confirmPwError.classList.add("active");
     }
     
     // PW Validation
@@ -143,14 +175,14 @@ class TestForm {
     } else if (this.passwordInput.validity.tooLong) {
     this.passwordError.textContent = `Password entered is too long. Max length is 18 characters, you entered ${this.passwordInput.value.length} characters`;
     }
-    this.passwordError.classList.add('active');
+    this.passwordError.classList.add("active");
     }
     
     // Email Validation
     validateEmail() {
     if (this.emailInput.validity.valueMissing) {
     // If empty
-    this.emailError.textContent = "You need to enter an email addresss.";
+    this.emailError.textContent = "You need to enter an email addresss";
     } else if (this.emailInput.validity.typeMismatch) {
     // If it's not an email addres
     this.emailError.textContent = "Entered value needs to be an email addresss";
@@ -159,8 +191,7 @@ class TestForm {
     this.emailError.textContent = `Email should be at least ${this.emailInput.minLength} characters; you entereed ${this.emailInput.value.length}`;
     }
     // Add the active class
-    this.emailError.classList.add('active');
-    this.emailInput.classList.add('red');
+    this.emailError.classList.add("active");
     }
     
     // Country Validation
@@ -168,31 +199,36 @@ class TestForm {
     if (this.countryInput.validity.valueMissing) {
     this.countryError.textContent = "Please select a country from the drop down";
     } 
-    this.countryError.classList.add('active');
+    this.countryError.classList.add("active");
     }
     
     // Postal Validation
     validatePostalCode() {
     const countrySelection = this.countryInput.value;
-    const mxPattern = "^\\d{5}$";
-    const usPattern = "^\\d{5}$";
+    const mxusPattern = "^\\d{5}$";
     const caPattern = "[A-Za-z]\\d[A-Za-z] ?\\d[A-Za-z]\\d";
+    const noPattern = "";
     if (countrySelection === "CA") {
     this.postalInput.pattern = caPattern;
     this.postalInput.maxlength = "7";
-    } else {
-    this.postalInput.pattern = mxPattern;
+    console.log('CA Postal code selected');
+    } else if (countrySelection === "MX" || countrySelection === "US") {
+    this.postalInput.pattern = mxusPattern;
     this.postalInput.maxlength = "5";
+    console.log('US MX postal selected');
+    } else {
+        this.postalInputPattern = noPattern;
+        this.postalInput.maxlength = "1";
     }
     if (this.postalInput.validity.valueMissing) {
     this.postalError.textContent = "Postal code field cannot be empty";
     } else if (this.postalInput.validity.patternMismatch) {
     this.postalError.textContent = "Please enter a valid zip code for the country selected";
     }
-    this.postalError.classList.add('active');
+    this.postalError.classList.add("active");
     }
     
     }
     
-    let newForm = new TestForm();
+    const newForm = new TestForm();
     

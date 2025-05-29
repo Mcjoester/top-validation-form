@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 * {
 	padding: 0;
 	margin: 0;
@@ -9,12 +12,14 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: darkslategray;
+	background: linear-gradient(217deg, rgb(21 8 110 / 80%), rgba(255, 0, 0, 0) 70.71%), linear-gradient(127deg, rgb(5 0 255 / 80%), rgba(0, 255, 0, 0) 70.71%), linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
+    font-family: "Roboto", sans-serif;
 }
+/* background-color: #354bdf; */
 
 form {
 	width: 500px;
-	background-color: white;
+	background-color: #f6f6f6;
 	border-radius: 30px;
 	box-shadow: 0 5px 10px black;
 }
@@ -30,6 +35,10 @@ fieldset {
 	text-align: center;
 }
 
+label {
+    padding-bottom: 5px;
+}
+
 .form-row {
 	display: flex;
 	flex-direction: column;
@@ -37,20 +46,21 @@ fieldset {
 }
 
 .button-row {
-	margin-bottom: 10px;
-	margin-top: 10px;
+	margin-top: 20px;
 	display: flex;
 	justify-content: center;
 }
 
 button {
-	padding: 5px 10px;
+	padding: 10px 15px;
 	border: none;
 	border-radius: 10px;
-}
-
-input {
-	padding: 5px;
+    color: white;
+    background-color: #5858ed;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 700;
+    font-size: 15px;
 }
 
 select {
@@ -72,11 +82,50 @@ select {
 	display: block;
 }
 
-.green {
-	border: 1px solid green;
+
+.form-row input {
+    padding: 8px;
+    border-radius: 5px;
+    border:  1px solid rgb(0,0,0,0.9);
+    letter-spacing: 1px;
 }
 
-.red {
-	border: 1px solid red;
+input:focus {
+    outline: none;
+    border: 1px solid black; 
+  }
+
+input:user-invalid {
+    border: 1px solid red;
+  }
+
+  input:user-valid {
+    border: 1px solid blue;
+  }
+
+  .form-row select {
+    padding: 8px;
+    border-radius: 5px;
+    border:  1px solid rgb(0,0,0,0.9);
+    letter-spacing: 1px;
 }
+
+select:focus {
+    outline: none;
+    border: 1px solid black; 
+}
+
+select:user-invalid {
+    border: 1px solid red;
+}
+
+select:user-valid {
+    border: 1px solid blue;
+}
+
+.required {
+    color: red;
+}
+
+ 
 
